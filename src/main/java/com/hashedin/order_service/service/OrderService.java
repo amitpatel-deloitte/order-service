@@ -61,11 +61,11 @@ public class OrderService {
 
     public Order updateOrderStatus(Long orderId, OrderStatus orderStatus) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new NotFoundException(" Order with id :  " + orderId));
+                .orElseThrow(() -> new NotFoundException(" Order with id :  " + orderId + " not found"));
 
-        if(order.getPaymentStatus() != PaymentStatus.PAID && ( orderStatus == OrderStatus.ACCEPTED ||  orderStatus == OrderStatus.PLACED
+        if((order.getPaymentStatus() != PaymentStatus.PAID )&& ( orderStatus == OrderStatus.ACCEPTED ||  orderStatus == OrderStatus.PLACED
         ||  orderStatus == OrderStatus.PREPARING ||  orderStatus == OrderStatus.OUT_FOR_DELIVERY || orderStatus == OrderStatus.DELIVERED )) {
-            throw new NotAllowedException( "Setting order status : " + orderStatus + " Not allowed as Payment is still pending ");
+            throw new NotAllowedException( " Setting order status : " + orderStatus + " Not allowed as Payment is still pending ");
         }
         order.setOrderStatus(orderStatus);
         return orderRepository.save(order);
@@ -73,7 +73,7 @@ public class OrderService {
 
     public Order updatePaymentStatus( Long orderId, PaymentStatus paymentStatus) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new NotFoundException(" Order with id :  " + orderId));
+                .orElseThrow(() -> new NotFoundException(" Order with id :  " + orderId + " not found"));
 
         if(paymentStatus == PaymentStatus.PAID){
             order.setOrderStatus(OrderStatus.PLACED);
@@ -89,6 +89,6 @@ public class OrderService {
 
     public Order getOrderById(Long orderId){
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new NotFoundException(" Order with id :  " + orderId));
+                .orElseThrow(() -> new NotFoundException(" Order with id :  " + orderId + " not found"));
     }
 }

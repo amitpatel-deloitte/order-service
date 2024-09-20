@@ -20,9 +20,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler({NotAllowedException.class})
-    public ResponseEntity<Object> handleNotAllowedException(NotFoundException exception) {
+    public ResponseEntity<Object> handleNotAllowedException(NotAllowedException exception) {
         return ResponseEntity
-                .status(HttpStatus.BAD_GATEWAY)
+                .status(HttpStatus.NOT_ACCEPTABLE)
                 .body(exception.getMessage());
     }
 }
