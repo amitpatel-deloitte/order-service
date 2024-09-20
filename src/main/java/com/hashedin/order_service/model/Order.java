@@ -5,9 +5,10 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "Orders")
 @Getter
 @Setter
 @Builder
@@ -25,7 +26,11 @@ public class Order {
     @Column(nullable = false)
     private OrderStatus orderStatus;
     @Column(nullable = false)
-    private long totalPrice;
+    private PaymentStatus paymentStatus;
+    @Column(nullable = false)
+    private List<Integer> itemIds;
+    @Column(nullable = false)
+    private double totalPrice;
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime timeStamp;
