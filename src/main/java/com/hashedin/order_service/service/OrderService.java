@@ -26,7 +26,7 @@ public class OrderService {
     public Order placeOrder(int restaurantId, int userId, Map<Integer, Integer> itemsIdWithQuantity) {
         RestaurantDTO restaurantDTO = restaurantClient.getRestaurantById(restaurantId);
         if( restaurantDTO == null ){
-            throw new NotFoundException(" Restaurant with id: " + restaurantId + "not found");
+            throw new NotFoundException(" Restaurant with id: " + restaurantId + " not found");
         }
         List<MenuDTO> menus = restaurantDTO.getMenus();
         if(menus == null){
